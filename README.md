@@ -20,7 +20,9 @@ docker-compose up --build
 ```
 
 Default Postgres connection string
+```bash
 postgresql://notebook:notebook@postgres:5432/notebook
+```
 
 Tests:
 ```bash
