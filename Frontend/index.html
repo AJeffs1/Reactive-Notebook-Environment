@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reactive Notebook</title>
+    <!-- CodeMirror CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/default.min.css">
+    <!-- App CSS -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="header">
+            <h1>Reactive Notebook</h1>
+            <div class="run-mode-toggle">
+                <span class="toggle-label">Run mode:</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="auto-run-toggle">
+                    <span class="toggle-slider"></span>
+                </label>
+                <span id="run-mode-text" class="toggle-label">Manual</span>
+            </div>
+            <div class="header-actions">
+                <button id="save-btn" class="btn btn-secondary">Save</button>
+                <button id="run-all-btn" class="btn btn-primary">Run All</button>
+                <button id="reset-btn" class="btn btn-secondary">Reset</button>
+            </div>
+        </header>
+
+        <!-- Database Connection -->
+        <div class="db-config">
+            <div class="db-status">
+                <span class="status-dot" id="db-status-dot"></span>
+                <span id="db-status-text">Not connected</span>
+            </div>
+            <div class="db-form">
+                <input
+                    type="text"
+                    id="db-connection-string"
+                    placeholder="postgresql://user:password@host:port/database"
+                    class="input"
+                >
+                <button id="db-connect-btn" class="btn btn-secondary">Connect</button>
+            </div>
+        </div>
+
+        <!-- Cells Container -->
+        <div class="cells-container" id="cells-container">
+            <!-- Cells will be rendered here -->
+        </div>
+
+        <!-- Add Cell Button -->
+        <div class="add-cell-container">
+            <button id="add-python-btn" class="btn btn-add">+ Python Cell</button>
+            <button id="add-sql-btn" class="btn btn-add">+ SQL Cell</button>
+        </div>
+    </div>
+
+    <!-- Insert Cell Divider Template -->
+    <template id="insert-divider-template">
+        <div class="insert-divider">
+            <div class="insert-line"></div>
+            <div class="insert-buttons">
+                <button class="btn-insert insert-python">+ Python</button>
+                <button class="btn-insert insert-sql">+ SQL</button>
+            </div>
+            <div class="insert-line"></div>
+        </div>
+    </template>
+
+    <!-- Cell Template (hidden) -->
+    <template id="cell-template">
+        <div class="cell" data-cell-id="">
+            <div class="cell-header">
+                <div class="cell-type-badge"></div>
+                <div class="cell-status">
+                    <span class="status-indicator"></span>
+                    <span class="status-text">idle</span>
+                    <span class="stale-indicator" style="display: none;">outdated</span>
+                </div>
+                <div class="cell-unsaved" style="display: none;">
+                    <span class="unsaved-text">Unsaved</span>
+                    <button class="btn-small save-cell-btn">Save</button>
+                </div>
+                <div class="cell-actions">
+                    <button class="btn-icon sync-btn" title="Sync from server" style="display: none;">&#8635;</button>
+                    <button class="btn-icon run-btn" title="Run (Ctrl+Enter)">&#9654;</button>
+                    <button class="btn-icon delete-btn" title="Delete">&#10005;</button>
+                </div>
+            </div>
+            <div class="cell-sql-config" style="display: none;">
+                <label>Result variable:</label>
+                <input type="text" class="as-var-input input-small" placeholder="df_name">
+            </div>
+            <div class="cell-editor">
+                <textarea class="code-input" placeholder="Enter code..." spellcheck="false"></textarea>
+            </div>
+            <div class="cell-output-wrapper">
+                <div class="output-header" onclick="this.parentElement.classList.toggle('collapsed')">
+                    <span class="output-toggle">&#9662;</span>
+                    <span class="output-title">Output</span>
+                </div>
+                <div class="cell-output">
+                    <div class="output-stdout"></div>
+                    <div class="output-result"></div>
+                    <div class="output-error"></div>
+                    <div class="output-empty">No output yet. Run the cell to see results.</div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- CodeMirror JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/sql/sql.min.js"></script>
+    <!-- App JS -->
+    <script src="/static/app.js"></script>
+</body>
+</html>
