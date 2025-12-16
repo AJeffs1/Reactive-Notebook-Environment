@@ -10,6 +10,8 @@ executes Python or SQL in cde cells. When variable are changed upstream, everyth
 
 The backend parses your code with Python's `ast` module to asertain out which variables each cell reads/writes, builds a dependency graph, and handles execution order via topological sort.
 
+The project runs in a docker container, i i did this as its clean and was drastically easier to run on my pc. 
+
 ## Running it
 
 ```bash
@@ -60,4 +62,6 @@ Found [Marimo](https://marimo.io/) while researching - impressive reactive noteb
 
 Kept scope tight but added unit tests because it's good practice.
 
-**If I kept going, I'd add:** auto-run on edit, execution timing, matplotlib/plotly output, and a variable inspector panel.
+i had noticed some minor lag when runnign so i added the feature to manually run them, my pc is struggling so wasnt able to fully identfy but i beleive its okay
+
+**If I kept going, I'd add:** save multiple notebooks, execution timing, matplotlib/plotly output, and a variable inspector panel.

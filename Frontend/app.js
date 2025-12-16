@@ -23,6 +23,8 @@ let editors = {};
 let unsavedCells = new Set();
 // Track last executed code per cell (to detect stale output)
 let lastExecutedCode = {};
+// Auto-run mode (false = manual, true = auto)
+let autoRunMode = false;
 
 // === DOM Elements ===
 
@@ -38,6 +40,8 @@ const runAllBtn = document.getElementById('run-all-btn');
 const resetBtn = document.getElementById('reset-btn');
 const addPythonBtn = document.getElementById('add-python-btn');
 const addSqlBtn = document.getElementById('add-sql-btn');
+const autoRunToggle = document.getElementById('auto-run-toggle');
+const runModeText = document.getElementById('run-mode-text');
 
 // === WebSocket ===
 
@@ -474,11 +478,15 @@ function createCellElement(cell) {
         // Check if output is now stale
         checkIfStale(cell.id);
 
-        // Debounced save
+        // Debounced save (and auto-run if enabled)
         clearTimeout(saveTimeout);
-        saveTimeout = setTimeout(() => {
-            updateCell(cell.id, { code: editor.getValue() });
-        }, 1000); // Increased debounce to 1 second
+        saveTimeout = setTimeout(async () => {
+            await updateCell(cell.id, { code: editor.getValue() });
+            // Auto-run if enabled
+            if (autoRunMode) {
+                runCell(cell.id);
+            }
+        }, 1000); // 1 second debounce
     });
 
     // Save button (in cell header)
@@ -692,6 +700,12 @@ addPythonBtn.addEventListener('click', () => {
 // Add SQL cell
 addSqlBtn.addEventListener('click', () => {
     createCell('sql');
+});
+
+// Auto-run mode toggle
+autoRunToggle.addEventListener('change', () => {
+    autoRunMode = autoRunToggle.checked;
+    runModeText.textContent = autoRunMode ? 'Auto' : 'Manual';
 });
 
 // === Initialize ===

@@ -15,6 +15,14 @@
         <!-- Header -->
         <header class="header">
             <h1>Reactive Notebook</h1>
+            <div class="run-mode-toggle">
+                <span class="toggle-label">Run mode:</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="auto-run-toggle">
+                    <span class="toggle-slider"></span>
+                </label>
+                <span id="run-mode-text" class="toggle-label">Manual</span>
+            </div>
             <div class="header-actions">
                 <button id="save-btn" class="btn btn-secondary">Save</button>
                 <button id="run-all-btn" class="btn btn-primary">Run All</button>

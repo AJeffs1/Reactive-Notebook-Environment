@@ -1,5 +1,5 @@
 # %% [id: 72a25438]
-a = 5
+a = 77
 
 # %% [id: 8205c5d7]
 b = 5
@@ -25,4 +25,3 @@ SELECT * FROM test_users ORDER BY score DESC
 # %% [id: 90d9f433]
 print(users_df)
 _result = users_df
-print(a)
