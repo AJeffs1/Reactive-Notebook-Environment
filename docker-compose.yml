@@ -1,0 +1,32 @@
+services:
+  notebook:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount backend and frontend for live reload during development
+      - ./Backend:/app/Backend
+      - ./Frontend:/app/Frontend
+      # Persist notebook file
+      - ./notebooks:/app/Backend/notebooks
+    environment:
+      - NOTEBOOK_FILE=notebooks/notebook.py
+      - FRONTEND_DIR=/app/Frontend
+    depends_on:
+      postgres:
+        condition: service_started
+
+  # Optional: Local Postgres for testing SQL cells
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: notebook
+      POSTGRES_PASSWORD: notebook
+      POSTGRES_DB: notebook
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

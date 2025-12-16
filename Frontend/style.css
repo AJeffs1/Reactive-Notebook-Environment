@@ -1,0 +1,669 @@
+/* === Base Styles === */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
+    color: #333;
+    line-height: 1.5;
+}
+
+.app {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* === Header === */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* === Buttons === */
+
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s, opacity 0.2s;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: #2563eb;
+    color: white;
+}
+
+.btn-secondary {
+    background: #6b7280;
+    color: white;
+}
+
+.btn-add {
+    background: #e5e7eb;
+    color: #374151;
+    border: 1px dashed #9ca3af;
+}
+
+.btn-add:hover {
+    background: #d1d5db;
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 8px;
+    font-size: 14px;
+    color: #6b7280;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.btn-icon:hover {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+/* === Input === */
+
+.input {
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input:focus {
+    border-color: #2563eb;
+}
+
+.input-small {
+    padding: 4px 8px;
+    font-size: 13px;
+}
+
+/* === Database Config === */
+
+.db-config {
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.db-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 120px;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #9ca3af;
+}
+
+.status-dot.connected {
+    background: #10b981;
+}
+
+.db-form {
+    display: flex;
+    gap: 10px;
+    flex: 1;
+}
+
+.db-form .input {
+    flex: 1;
+    min-width: 200px;
+}
+
+/* === Cells Container === */
+
+.cells-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* === Cell === */
+
+.cell {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border: 2px solid transparent;
+    transition: border-color 0.2s;
+}
+
+.cell:focus-within {
+    border-color: #2563eb;
+}
+
+.cell.status-running {
+    border-color: #f59e0b;
+}
+
+.cell.status-success {
+    border-color: #10b981;
+}
+
+.cell.status-error {
+    border-color: #ef4444;
+}
+
+.cell.status-blocked {
+    border-color: #9ca3af;
+    opacity: 0.7;
+}
+
+/* === Cell Header === */
+
+.cell-header {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
+    gap: 10px;
+}
+
+.cell-type-badge {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.cell-type-badge.python {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.cell-type-badge.sql {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.cell-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #9ca3af;
+}
+
+.status-indicator.running {
+    background: #f59e0b;
+    animation: pulse 1s infinite;
+}
+
+.status-indicator.success {
+    background: #10b981;
+}
+
+.status-indicator.error {
+    background: #ef4444;
+}
+
+.status-indicator.blocked {
+    background: #9ca3af;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.status-text {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.stale-indicator {
+    font-size: 11px;
+    color: #dc2626;
+    background: #fef2f2;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 6px;
+}
+
+.cell-actions {
+    display: flex;
+    gap: 4px;
+}
+
+/* Unsaved changes indicator */
+.cell-unsaved {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-right: 8px;
+}
+
+.unsaved-text {
+    font-size: 12px;
+    color: #f59e0b;
+    font-weight: 500;
+}
+
+.btn-small {
+    padding: 2px 8px;
+    font-size: 11px;
+    background: #f59e0b;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-small:hover {
+    background: #d97706;
+}
+
+/* === Sync Button === */
+
+.sync-btn {
+    color: #f59e0b;
+    font-size: 16px;
+    animation: spin 2s linear infinite;
+}
+
+.sync-btn:hover {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* === Pending Update Indicator === */
+
+.cell.has-pending-update {
+    border-color: #f59e0b;
+}
+
+.cell.has-pending-update .cell-header {
+    background: #fffbeb;
+}
+
+.cell.has-pending-update .cell-header::after {
+    content: 'Pending update';
+    font-size: 11px;
+    color: #d97706;
+    background: #fef3c7;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 8px;
+}
+
+/* === Cell SQL Config === */
+
+.cell-sql-config {
+    padding: 8px 12px;
+    background: #fef3c7;
+    border-bottom: 1px solid #fcd34d;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+}
+
+.cell-sql-config label {
+    color: #92400e;
+    font-weight: 500;
+}
+
+.cell-sql-config .input-small {
+    width: 150px;
+}
+
+/* === Cell Editor === */
+
+.cell-editor {
+    padding: 0;
+}
+
+/* Hide original textarea (CodeMirror replaces it) */
+.code-input {
+    display: none;
+}
+
+/* CodeMirror Styling */
+.cell-editor .CodeMirror {
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    height: auto;
+    min-height: 100px;
+    border: none;
+    background: white;
+}
+
+.cell-editor .CodeMirror-scroll {
+    min-height: 100px;
+}
+
+.cell-editor .CodeMirror-lines {
+    padding: 12px 0;
+}
+
+/* Line number gutter */
+.cell-editor .CodeMirror-gutters {
+    background: #f9fafb;
+    border-right: 1px solid #e5e7eb;
+}
+
+.cell-editor .CodeMirror-linenumber {
+    color: #9ca3af;
+    padding: 0 8px;
+    min-width: 20px;
+}
+
+/* Cursor */
+.cell-editor .CodeMirror-cursor {
+    border-left: 2px solid #2563eb;
+}
+
+/* Selection */
+.cell-editor .CodeMirror-selected {
+    background: #dbeafe !important;
+}
+
+.cell-editor .CodeMirror-focused .CodeMirror-selected {
+    background: #bfdbfe !important;
+}
+
+/* Active line */
+.cell-editor .CodeMirror-activeline-background {
+    background: #f3f4f6;
+}
+
+/* === Cell Output === */
+
+.cell-output-wrapper {
+    border-top: 1px solid #e5e7eb;
+}
+
+.output-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: #f3f4f6;
+    cursor: pointer;
+    user-select: none;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.output-header:hover {
+    background: #e5e7eb;
+}
+
+.output-toggle {
+    font-size: 12px;
+    color: #6b7280;
+    transition: transform 0.2s;
+}
+
+.output-title {
+    font-size: 12px;
+    font-weight: 500;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.cell-output-wrapper.collapsed .output-toggle {
+    transform: rotate(-90deg);
+}
+
+.cell-output-wrapper.collapsed .cell-output {
+    display: none;
+}
+
+.output-empty {
+    padding: 12px;
+    color: #9ca3af;
+    font-size: 13px;
+    font-style: italic;
+}
+
+.cell-output {
+    background: #f9fafb;
+}
+
+.cell-output:empty {
+    display: none;
+}
+
+.output-stdout,
+.output-result,
+.output-error {
+    padding: 12px;
+}
+
+.output-stdout:empty,
+.output-result:empty,
+.output-error:empty {
+    display: none;
+}
+
+.output-stdout {
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace;
+    font-size: 13px;
+    white-space: pre-wrap;
+    background: #f3f4f6;
+    color: #374151;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.output-result {
+    overflow-x: auto;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.output-error {
+    background: #fef2f2;
+    color: #b91c1c;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace;
+    font-size: 13px;
+    white-space: pre-wrap;
+}
+
+/* === DataFrame Table === */
+
+.output-result table.dataframe {
+    border-collapse: collapse;
+    font-size: 13px;
+    width: 100%;
+}
+
+.output-result table.dataframe th,
+.output-result table.dataframe td {
+    padding: 8px 12px;
+    border: 1px solid #e5e7eb;
+    text-align: left;
+}
+
+.output-result table.dataframe th {
+    background: #f3f4f6;
+    font-weight: 600;
+}
+
+.output-result table.dataframe tr:nth-child(even) {
+    background: #f9fafb;
+}
+
+.output-result table.dataframe tr:hover {
+    background: #f3f4f6;
+}
+
+/* === Insert Cell Divider === */
+
+.insert-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 0;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.cells-container:hover .insert-divider,
+.insert-divider:hover {
+    opacity: 1;
+}
+
+.insert-line {
+    flex: 1;
+    height: 1px;
+    background: #d1d5db;
+}
+
+.insert-buttons {
+    display: flex;
+    gap: 6px;
+}
+
+.btn-insert {
+    padding: 2px 10px;
+    font-size: 12px;
+    background: #f3f4f6;
+    color: #6b7280;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-insert:hover {
+    background: #e5e7eb;
+    color: #374151;
+    border-color: #9ca3af;
+}
+
+.btn-insert.insert-python:hover {
+    background: #dbeafe;
+    color: #1d4ed8;
+    border-color: #93c5fd;
+}
+
+.btn-insert.insert-sql:hover {
+    background: #fef3c7;
+    color: #b45309;
+    border-color: #fcd34d;
+}
+
+/* === Add Cell Container === */
+
+.add-cell-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    justify-content: center;
+}
+
+/* === Blocked Overlay === */
+
+.cell.status-blocked .cell-output {
+    position: relative;
+}
+
+.cell.status-blocked .cell-output::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.blocked-message {
+    padding: 12px;
+    background: #f3f4f6;
+    color: #6b7280;
+    font-style: italic;
+}
+
+/* === Responsive === */
+
+@media (max-width: 600px) {
+    .app {
+        padding: 10px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .db-config {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .db-form {
+        flex-direction: column;
+    }
+}
